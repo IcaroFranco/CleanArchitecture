@@ -19,14 +19,14 @@ internal sealed class GetUsuariosQueryHandler
         GetUsuariosQuery request,
         CancellationToken cancellationToken)
     {
-        var UserId = new UsuarioId(request.UsuarId);
+        //var UserId = new UsuarioId(request.UsuarId);
 
-        var possuiPermissao = await _usuarioRepository.GetByIdAsync(UserId, cancellationToken);
+        //var possuiPermissao = await _usuarioRepository.GetByIdAsync(UserId, cancellationToken);
 
-        if(possuiPermissao is null || possuiPermissao.Admin == false)
-        {
-            return Result.Failure<IEnumerable<UsuarioResponse>>(UsuarioErrors.Unauthorized);
-        }
+        //if(possuiPermissao is null || possuiPermissao.Admin == false)
+        //{
+        //    return Result.Failure<IEnumerable<UsuarioResponse>>(UsuarioErrors.Unauthorized);
+        //}
 
         var usuarios = await _usuarioRepository.GetAllAsync(cancellationToken);
 

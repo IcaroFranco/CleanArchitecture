@@ -1,5 +1,7 @@
 ﻿using CleanArchitecture.Application.Usuarios;
 using CleanArchitecture.Application.Usuarios.GetUsuarios;
+using CleanArchitecture.Application.Usuarios.PostUsuario;
+using CleanArchitecture.Application.Usuarios.Shared;
 using CleanArchitecture.Domain.Abstractions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -11,7 +13,7 @@ namespace CleanArchitecture.WebAPI.Controllers;
 [ApiController]
 //[ApiExplorerSettings(IgnoreApi = true)] // Faz que com que o Swagger ignore este controller (controle de usuário não deve ser visto).
 //[Authorize] // Atributo de autorização (necessário para acessar os métodos do controller). Porém, não irei usar nesse exemplo.
-[Route("api/v1/{usuarioId}/usuarios")]
+[Route("api/v1/usuarios")]
 public class UsuariosController : ControllerBase
 {
     private readonly ISender _sender;
@@ -24,14 +26,28 @@ public class UsuariosController : ControllerBase
     [HttpGet]
     [Consumes("application/json")]
     public async Task<Results<Ok<IEnumerable<UsuarioResponse>>, NotFound<Error>>>
-        GetUsuariosAsync(Guid usuarioId, CancellationToken cancellationToken)
+        GetUsuariosAsync(CancellationToken cancellationToken)
     {
-        var query = new GetUsuariosQuery(usuarioId);
+        var query = new GetUsuariosQuery();
 
         var result = await _sender.Send(query, cancellationToken);
 
         return result.IsSucess
             ? TypedResults.Ok(result.Value)
             : TypedResults.NotFound(result.Error);
+    }
+
+    [HttpPost]
+    [Consumes("application/json")]
+    public async Task<Results<Ok<UsuarioResponse>, BadRequest<Error>>>
+        PostUsuarioAsync([FromBody] UsuarioRequest request, CancellationToken cancellationToken)
+    {
+        var command = new PostUsuarioCommand(request);
+
+        var result = await _sender.Send(command, cancellationToken);
+
+        return result.IsSucess
+            ? TypedResults.Ok(result.Value)
+            : TypedResults.BadRequest(result.Error);
     }
 }

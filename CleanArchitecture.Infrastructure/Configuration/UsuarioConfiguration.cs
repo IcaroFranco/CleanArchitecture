@@ -22,7 +22,8 @@ internal sealed class UsuarioConfiguration
             .HasConversion(id => id.Value, value => new UsuarioId(value))
             .IsRequired()
             .HasColumnType("char(36)")
-            .HasColumnName("USUA_Id");
+            .HasColumnName("USUA_Id")
+            .ValueGeneratedOnAdd();
 
         builder.Property(u => u.Nome)
             .HasColumnName("USUA_Nome")

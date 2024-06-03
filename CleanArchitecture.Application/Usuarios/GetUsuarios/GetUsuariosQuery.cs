@@ -2,6 +2,5 @@
 
 namespace CleanArchitecture.Application.Usuarios.GetUsuarios;
 
-public sealed record GetUsuariosQuery(
-    Guid UsuarId)
+public sealed record GetUsuariosQuery()
     : IQuery<IEnumerable<UsuarioResponse>>;

@@ -1,4 +1,5 @@
 ﻿using CleanArchitecture.Application.Usuarios;
+using CleanArchitecture.Application.Usuarios.Shared;
 using CleanArchitecture.Domain.Usuarios;
 
 namespace CleanArchitecture.Application.Extensions;
@@ -21,5 +22,20 @@ internal static class UsuarioExtension
             Senha = usuario.Senha,
             Admin = usuario.Admin
         };
+    }
+
+    public static Usuario ToEntity(
+        this UsuarioRequest request,
+        DateTime utcNow)
+    {
+        // Converte um objeto de requisição para um objeto de domínio.
+
+        return Usuario.Criar(
+            request.Nome,
+            request.Idade,
+            request.Email,
+            request.Senha,
+            request.Admin,
+            utcNow);
     }
 }
