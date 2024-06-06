@@ -14,8 +14,6 @@ internal sealed class UsuarioConfiguration
 
         builder.HasKey(u => u.Id).HasName("USUA_01");
 
-        // Esse 'Guid.Empty' pode ser tranformado em uma classe 'UsuarioId' static, onde terá dois valores: 'Guid.Empty' e 'Guid.NewGuid()'.
-        // Eventualmente irei fazer isso.
         builder.HasQueryFilter(x => x.RegDel == UsuarioId.Zero);
 
         builder.Property(u => u.Id)

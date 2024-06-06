@@ -16,6 +16,7 @@ internal static class UsuarioExtension
 
         return new UsuarioResponse() 
         {
+            Id = usuario.Id.Value,
             Nome = usuario.Nome,
             Idade = usuario.Idade,
             Email = usuario.Email,

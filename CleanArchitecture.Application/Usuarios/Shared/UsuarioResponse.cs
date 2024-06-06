@@ -2,6 +2,8 @@
 
 public sealed class UsuarioResponse
 {
+    public Guid Id { get; init; }
+
     public required string Nome { get;  init; }
 
     public int Idade { get; init; }

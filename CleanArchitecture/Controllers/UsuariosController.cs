@@ -1,4 +1,5 @@
 ﻿using CleanArchitecture.Application.Usuarios;
+using CleanArchitecture.Application.Usuarios.DeleteUsuario;
 using CleanArchitecture.Application.Usuarios.GetUsuarios;
 using CleanArchitecture.Application.Usuarios.PostUsuario;
 using CleanArchitecture.Application.Usuarios.Shared;
@@ -39,6 +40,7 @@ public class UsuariosController : ControllerBase
 
     [HttpPost]
     [Consumes("application/json")]
+    [Produces("application/json")]
     public async Task<Results<Ok<UsuarioResponse>, BadRequest<Error>>>
         PostUsuarioAsync([FromBody] UsuarioRequest request, CancellationToken cancellationToken)
     {
@@ -48,6 +50,19 @@ public class UsuariosController : ControllerBase
 
         return result.IsSucess
             ? TypedResults.Ok(result.Value)
+            : TypedResults.BadRequest(result.Error);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<Results<NoContent, BadRequest<Error>>>
+        DeleteUsuarioAsync(Guid id, CancellationToken cancellationToken)
+    {
+        var command = new DeleteUsuarioCommand(id);
+
+        var result = await _sender.Send(command, cancellationToken);
+
+        return result.IsSucess
+            ? TypedResults.NoContent()
             : TypedResults.BadRequest(result.Error);
     }
 }

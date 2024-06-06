@@ -10,4 +10,6 @@ public interface IUsuarioRepository
         CancellationToken cancellationToken = default);
 
     void Add(Usuario usuario);
+
+    void Update(Usuario usuario);
 }

@@ -51,4 +51,9 @@ public sealed class Usuario
             admin ?? false, 
             utcNow);
     }
+
+    public void Excluir(DateTime utcNow)
+    {
+        Delete(utcNow);
+    }
 }
