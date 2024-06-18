@@ -1,5 +1,6 @@
 ﻿using CleanArchitecture.Application.Abstraction.Data;
 using CleanArchitecture.Domain.Abstractions;
+using CleanArchitecture.Domain.Produtos;
 using CleanArchitecture.Domain.Usuarios;
 using CleanArchitecture.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +39,7 @@ public static class DependencyInjection
         // Aqui ficará a configuração dos Repositórios.
 
         services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+        services.AddScoped<IProdutoRepository, ProdutoRepository>();
 
         services.AddScoped<IUnitOfWork>(sp => 
             sp.GetRequiredService<ApplicationDbContext>());

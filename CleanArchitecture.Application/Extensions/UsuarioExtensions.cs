@@ -7,7 +7,7 @@ namespace CleanArchitecture.Application.Extensions;
 // Como a Classe não possui tantos atributos, aqui pode ser feito o 'Request > Entity' e 'Entity > Response'.
 // Caso a classe possua muitos atributos ou 'filhos / arrays', é recomendado criar uma classe de extensão para cada conversão.
 
-internal static class UsuarioExtension
+internal static class UsuarioExtensions
 {
     public static UsuarioResponse ToResponse(
         this Usuario usuario)
